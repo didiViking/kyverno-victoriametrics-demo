@@ -1,0 +1,19 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: restrict-image-registries
+spec:
+  validationFailureAction: Enforce
+  rules:
+    - name: validate-image
+      match:
+        any:
+        - resources:
+            kinds:
+              - Pod
+      validate:
+        message: "Only nginx images are allowed"
+        pattern:
+          spec:
+            containers:
+              - image: "nginx*"

@@ -1,0 +1,12 @@
+remoteWrite:
+  - url: http://vm-victoria-metrics-single-server:8428/api/v1/write
+
+config:
+  global:
+    scrape_interval: 15s
+
+  scrape_configs:
+    - job_name: kyverno
+      static_configs:
+        - targets:
+            - kyverno-svc-metrics.kyverno.svc.cluster.local:8000

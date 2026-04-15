@@ -1,0 +1,20 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: add-safe-observability-labels
+spec:
+  rules:
+    - name: add-labels-to-pods-only
+      match:
+        any:
+        - resources:
+            kinds:
+              - Pod
+      mutate:
+        patchStrategicMerge:
+          metadata:
+            labels:
+              demo: "true"
+              observability: "enabled"
+              environment: "demo"
+              team: "observability"

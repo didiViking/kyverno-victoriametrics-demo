@@ -1,0 +1,22 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: protect-deployments
+spec:
+  validationFailureAction: Enforce
+  background: false
+  rules:
+    - name: block-delete
+      match:
+        any:
+        - resources:
+            kinds:
+              - Deployment
+      validate:
+        message: "Deleting deployments is not allowed"
+        deny:
+          conditions:
+            any:
+              - key: "{{ request.operation }}"
+                operator: Equals
+                value: DELETE

@@ -1,0 +1,22 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-observability-labels
+spec:
+  validationFailureAction: Enforce
+  background: false
+  rules:
+    - name: check-required-labels
+      match:
+        any:
+        - resources:
+            kinds:
+              - Pod
+      validate:
+        message: "Missing required labels: app, environment, team"
+        pattern:
+          metadata:
+            labels:
+              app: "?*"
+              environment: "?*"
+              team: "?*"

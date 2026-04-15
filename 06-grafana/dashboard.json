@@ -1,0 +1,88 @@
+{
+  "id": null,
+  "title": "Kyverno Policy Observability",
+  "tags": ["kyverno", "victoriametrics", "kubernetes"],
+  "timezone": "browser",
+  "schemaVersion": 38,
+  "version": 1,
+  "refresh": "5s",
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Total Admission Requests",
+      "gridPos": { "x": 0, "y": 0, "w": 6, "h": 4 },
+      "targets": [
+        {
+          "expr": "sum(kyverno_admission_requests_total)",
+          "legendFormat": "requests"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Allowed Requests",
+      "gridPos": { "x": 6, "y": 0, "w": 6, "h": 4 },
+      "targets": [
+        {
+          "expr": "sum(kyverno_admission_requests_total{status=\"allowed\"})",
+          "legendFormat": "allowed"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Denied Requests",
+      "gridPos": { "x": 12, "y": 0, "w": 6, "h": 4 },
+      "targets": [
+        {
+          "expr": "sum(kyverno_admission_requests_total{status=\"denied\"})",
+          "legendFormat": "denied"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Requests Over Time",
+      "gridPos": { "x": 0, "y": 4, "w": 12, "h": 8 },
+      "targets": [
+        {
+          "expr": "rate(kyverno_admission_requests_total[1m])",
+          "legendFormat": "{{status}}"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Requests by Operation",
+      "gridPos": { "x": 12, "y": 4, "w": 12, "h": 8 },
+      "targets": [
+        {
+          "expr": "sum(rate(kyverno_admission_requests_total[1m])) by (operation)",
+          "legendFormat": "{{operation}}"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Requests by Resource Kind",
+      "gridPos": { "x": 0, "y": 12, "w": 12, "h": 8 },
+      "targets": [
+        {
+          "expr": "sum(rate(kyverno_admission_requests_total[1m])) by (resource_kind)",
+          "legendFormat": "{{resource_kind}}"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Policy Rule Results",
+      "gridPos": { "x": 12, "y": 12, "w": 12, "h": 8 },
+      "targets": [
+        {
+          "expr": "sum(rate(kyverno_policy_results_total[1m])) by (policy,rule,result)",
+          "legendFormat": "{{policy}} - {{rule}} - {{result}}"
+        }
+      ]
+    }
+  ]
+}
