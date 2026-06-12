@@ -1,3 +1,7 @@
+This demo was presented at the KCD New York conference, June 2026, USA.
+
+See the slides in the repo.
+
 # Kyverno + VictoriaMetrics Demo
 
 ## 🎯 Overview
