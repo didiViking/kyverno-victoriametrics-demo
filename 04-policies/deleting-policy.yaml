@@ -1,0 +1,18 @@
+apiVersion: policies.kyverno.io/v1
+kind: DeletingPolicy
+metadata:
+  name: delete-temporary-configmap
+spec:
+  schedule: "* * * * *"
+  matchConstraints:
+    resourceRules:
+      - apiGroups: [""]
+        apiVersions: ["v1"]
+        operations: ["*"]
+        resources: ["configmaps"]
+        scope: Namespaced
+  conditions:
+    - name: match-temporary-configmap
+      expression: >-
+        object.metadata.namespace == 'demo-ns' &&
+        object.metadata.name == 'temporary-demo'
