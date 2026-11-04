@@ -4,10 +4,10 @@ metadata:
   name: good-pod
   namespace: demo-ns
   labels:
-    app: test
+    app: demo
     environment: demo
-    team: observability
+    team: platform
 spec:
   containers:
-    - name: nginx
-      image: nginx:1.27
+    - name: app
+      image: ghcr.io/kyverno/test-verify-image:signed
