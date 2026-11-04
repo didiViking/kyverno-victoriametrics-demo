@@ -1,0 +1,22 @@
+apiVersion: policies.kyverno.io/v1
+kind: ValidatingPolicy
+metadata:
+  name: require-observability-labels
+spec:
+  validationActions:
+    - Deny
+  evaluation:
+    background:
+      enabled: false
+  matchConstraints:
+    resourceRules:
+      - apiGroups: [""]
+        apiVersions: ["v1"]
+        operations: ["CREATE", "UPDATE"]
+        resources: ["pods"]
+  validations:
+    - expression: >-
+        ['app', 'environment', 'team'].all(label,
+          object.metadata.?labels[label].orValue('') != ''
+        )
+      message: "Missing required labels: app, environment, team"
