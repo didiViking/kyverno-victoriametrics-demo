@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: good-pod
+  namespace: demo-ns
   labels:
     app: test
     environment: demo
@@ -9,4 +10,4 @@ metadata:
 spec:
   containers:
     - name: nginx
-      image: nginx
+      image: nginx:1.27
