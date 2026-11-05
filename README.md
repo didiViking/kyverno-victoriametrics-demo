@@ -2,6 +2,8 @@
 
 The repository includes the Kubernetes policy examples, deployment scripts, and a Grafana dashboard.
 
+A blog post describes the entire workflow: https://www.cncf.io/blog/2026/08/12/good-apps-arent-born-theyre-guided-building-observable-policy-as-code/
+
 ## 🎯 Overview
 
 This demo explores how to make Kubernetes policy enforcement observable using Kyverno and VictoriaMetrics.
